@@ -1,0 +1,16 @@
+{
+  "name": "pi-eye",
+  "version": "0.0.1",
+  "description": "Web interface to take pictures and videos with a raspberry pi.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "raspberry",
+    "pi",
+    "camera"
+  ],
+  "author": "Jason Forest",
+  "license": "ISC"
+}
