@@ -12,5 +12,8 @@
     "camera"
   ],
   "author": "Jason Forest",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.15.3"
+  }
 }
