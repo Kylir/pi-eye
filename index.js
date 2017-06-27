@@ -29,10 +29,10 @@ app.get('/pic/:name', (req, res) => {
     })
 })
 
-app.get('/timelapse/:namePrefix/:duration/:interval', (req, res) => {
-    let prefix = req.params.namePrefix,
+app.get('/timelapse/:name/:duration/:interval', (req, res) => {
+    let prefix = req.params.name,
         duration = req.params.duration, //TODO: add validation for integer
-        interval = req.params.interval
+        interval = req.params.interval //TODO: add validation for integer
 
     const cmd = 'raspistill'
     let args = ['-o', FOLDER + '/' + prefix + '%04d.jpg', '-t', duration, '-tl', interval]
@@ -51,25 +51,35 @@ app.get('/timelapse/:namePrefix/:duration/:interval', (req, res) => {
     res.json({status: 'OK'}) //no way to check it worked
 })
 
+// convert to mp4: https://www.raspberrypi.org/documentation/usage/camera/raspicam/raspivid.md
+
 app.get('/vid/:name/:time', (req, res) => {
+    const cmd = 'raspivid'
+    const convCmd = 'MP4Box' //conversion to MP4
+    
     let name = req.params.name
     let time = req.params.time //TODO: add validation for integer
 
-    const cmd = 'raspivid'
-    let args = ['-o', FOLDER + '/' + name + '.h264', '-t', time]
+    const args = ['-o', FOLDER + '/' + name + '.h264', '-t', time]
+    const convArgs = ['-add', FOLDER + '/' + name + '.h264', FOLDER + '/' + name + '.mp4']
 
     console.log(`Recording video with command: ${cmd} ` + args.join(' '))
     var childProcess = spawn(cmd, args)
 
     childProcess.on('close', (code) => {
-        console.log(`${cmd} exited with code ${code}`)
+        console.log(`${cmd} exited with code ${code}.`)
+        console.log(`Starting conversion to MP4 with command: ${convCmd} ` + convArgs.join(' '))
+        var conversionProcess = spawn(convCmd, convArgs)
+        conversionProcess.on('close', (code) => {
+            console.log(`${convCmd} exited with code ${code}.`)
+        })
     })
 
     childProcess.on('error', (err) => {
         console.error(err)            
     })
 
-    res.json({status: 'OK'}) //no way to check it worked
+    res.json({status: 'OK'}) //  Return early as there is no way to check if it worked.
 })
 
 app.listen(PORT, () => {
