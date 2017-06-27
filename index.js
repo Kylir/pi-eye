@@ -10,7 +10,7 @@ const PORT = 3000
 const FOLDER = 'public'
 
 //Public directory as static.
-app.use(express.static(FOLDER))
+app.use('/content', express.static(FOLDER))
 
 app.get('/pic/:name', (req, res) => {
     let name = req.params.name
@@ -24,7 +24,7 @@ app.get('/pic/:name', (req, res) => {
     childProcess.on('close', (code) => {
         console.log(`${cmd} exited with code ${code}`)
         //redirect to the image
-        res.redirect(`/${FOLDER}/${name}.jpg`)
+        res.redirect(`/content/${name}.jpg`)
     })
 
     childProcess.on('error', (err) => {
