@@ -20,6 +20,10 @@ If you're not sure have a look at the official documentation:
 
 I also assume you already have NodeJS and npm installed on your Pi. If not have a [look at this post on Stackoverflow](https://raspberrypi.stackexchange.com/a/48313/20530).
 
+Last assumption, to create an MP4 video from the raw H264 and to create a video from the timelapse images you need few command line tools: 
+
+TODO: list the tools and the comand to install them. 
+
 ## Web Interface
 
 TODO
@@ -44,6 +48,7 @@ GET /pic/:name
 ### Create a timelapse
 
 TODO
+https://www.raspberrypi.org/documentation/usage/camera/raspicam/timelapse.md
 
 ### Record a video
 

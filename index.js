@@ -9,7 +9,7 @@ var app = express()
 const PORT = 3000
 const FOLDER = 'public'
 
-//Public directory as static.
+//content directory as static.
 app.use('/content', express.static(FOLDER))
 
 app.get('/pic/:name', (req, res) => {
@@ -40,9 +40,10 @@ app.get('/timelapse/:name/:duration/:interval', (req, res) => {
 
     const cmd = 'raspistill'
     let args = ['-o', FOLDER + '/' + prefix + '%04d.jpg', '-t', duration, '-tl', interval]
+    const options = {detached: true}
 
     console.log(`Starting timelapse: ${cmd} ` + args.join(' '))
-    var childProcess = spawn(cmd, args)
+    var childProcess = spawn(cmd, args, options)
 
     childProcess.on('close', (code) => {
         console.log(`${cmd} exited with code ${code}`)
@@ -65,10 +66,11 @@ app.get('/vid/:name/:time', (req, res) => {
     let time = req.params.time //TODO: add validation for integer
 
     const args = ['-o', FOLDER + '/' + name + '.h264', '-t', time]
+    const options = {detached: true}
     const convArgs = ['-add', FOLDER + '/' + name + '.h264', FOLDER + '/' + name + '.mp4']
 
     console.log(`Recording video with command: ${cmd} ` + args.join(' '))
-    var childProcess = spawn(cmd, args)
+    var childProcess = spawn(cmd, args, options)
 
     childProcess.on('close', (code) => {
         console.log(`${cmd} exited with code ${code}.`)
