@@ -35,8 +35,8 @@ app.get('/pic/:name', (req, res) => {
 
 app.get('/timelapse/:name/:duration/:interval', (req, res) => {
     let prefix = req.params.name,
-        duration = req.params.duration, //TODO: add validation for integer
-        interval = req.params.interval //TODO: add validation for integer
+        duration = req.params.duration * 1000, //TODO: add validation for integer
+        interval = req.params.interval * 1000 //TODO: add validation for integer
 
     const cmd = 'raspistill'
     let args = ['-o', FOLDER + '/' + prefix + '%04d.jpg', '-t', duration, '-tl', interval]
@@ -63,7 +63,7 @@ app.get('/vid/:name/:time', (req, res) => {
     const convCmd = 'MP4Box' //conversion to MP4
     
     let name = req.params.name
-    let time = req.params.time //TODO: add validation for integer
+    let time = req.params.time * 1000 //TODO: add validation for integer
 
     const args = ['-o', FOLDER + '/' + name + '.h264', '-t', time]
     const options = {detached: true}
