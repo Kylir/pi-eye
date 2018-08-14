@@ -102,11 +102,24 @@ As a video recording can be long the application is not waiting for the video to
 At the moment there is no way to retrieve an error message using the API if something went wrong.
 But it is possible to turn on the debug messages and see on the application logs if an error has been raised.
 
+For info about the size of a video file: I made a one minute video and it was 126 927 324 bytes 
 
 ### Questions
 
-+ Q: Why yet another module about the pi camera?
++ Q: What is the default format of the video?
++ A: It is 1920 x 1080 pixels at 25 frames per second.
 
++ Q: How big is a video?
++ A: A one minute video I made was around 127 MB.
+
++ Q: What is the default format of a picture?
++ A: It is a JPG file at 2592 x 1944 pixels.
+
++ Q: How big is a picture?
++ A: With the default option used in the application a picture is around 2.5 MB
+
++ Q: Why yet another module about the pi camera?
 + A: I reviewed the existing ones and they were not exactly doing what I wanted. So, I decided to re-invent the wheel. 
 
-
++ Q: When are you going to make a nice web interface to the application?
++ A: When I will have the time... :'(
