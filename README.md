@@ -63,7 +63,7 @@ Here is a bit more details:
 + duration: how many seconds the camera will stay active.
 + interval: how many seconds between capturing two images.
 
-For instance to take a picture every 10 seconds for one hour and name the file pic000***.jpg you will have to call:
+For instance to take a picture every 10 seconds for one hour (3600 seconds) and name the file pic000***.jpg you will have to call:
 
 ```
 GET /timelapse/pic/3600/10
@@ -71,12 +71,42 @@ GET /timelapse/pic/3600/10
 
 For more info about timelapse with the raspberry pi you can read [this page.](https://www.raspberrypi.org/documentation/usage/camera/raspicam/timelapse.md)
 
+
 ### Record a video
 
-TODO
+A video recording can be triggered using the route:
+
+```
+GET /video/:name/:time_sec
+```
+
++ `:name` is obviously the name of the video with no extension.
++ `:time_sec` is the duration in seconds of the video.
+
+Behind the scene the application is calling the program `raspivid`.
+By default the camera is recording using the format (encoding?) h264.
+As soon as raspivid is finished the application starts a conversion to mp4 using `MP4Box`.
+
+For instance to record a one minute video named `myVid01.mp4` use the following:
+
+```
+GET /video/myVid01/60
+```
+
+As a video recording can be long the application is not waiting for the video to be recorded and sends the following response:
+
+```
+{"status":"pending","type":"video","path":"/content/myVid01.mp4"}
+```
+
+At the moment there is no way to retrieve an error message using the API if something went wrong.
+But it is possible to turn on the debug messages and see on the application logs if an error has been raised.
+
 
 ### Questions
 
 + Q: Why yet another module about the pi camera?
 
 + A: I reviewed the existing ones and they were not exactly doing what I wanted. So, I decided to re-invent the wheel. 
+
+

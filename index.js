@@ -13,6 +13,7 @@ const FOLDER = 'public'
 //content directory as static.
 app.use('/content', express.static(FOLDER))
 
+// Take a picture with a given name
 app.get('/pic/:name', (req, res) => {
     let name = req.params.name
     let noError = true
@@ -63,7 +64,7 @@ app.get('/timelapse/:name/:duration/:interval', (req, res) => {
 })
 
 // convert to mp4: https://www.raspberrypi.org/documentation/usage/camera/raspicam/raspivid.md
-
+// Start recording a video name :name for :time seconds
 app.get('/video/:name/:time', (req, res) => {
     const cmd = 'raspivid'
     const convCmd = 'MP4Box' //conversion to MP4
@@ -100,5 +101,6 @@ app.get('/video/:name/:time', (req, res) => {
 })
 
 app.listen(PORT, () => {
-    console.log(`Starting Pi-Eye server on port ${PORT}!`)
+    console.log(`Starting Pi-Eye Camera server on port ${PORT}!`)
+    debug('Debug mode is ON!')
 })
