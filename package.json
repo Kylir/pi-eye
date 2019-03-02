@@ -15,6 +15,7 @@
   "license": "ISC",
   "dependencies": {
     "debug": "^2.6.8",
+    "eslint": "^5.14.1",
     "express": "^4.15.3"
   }
 }

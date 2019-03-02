@@ -3,15 +3,17 @@
 
 const express = require('express')
 const spawn = require('child_process').spawn
-const path = require('path')
 const debug = require('debug')('pi-eye')
 
 let app = express()
 const PORT = 3000
-const FOLDER = 'public'
+const FOLDER = 'generated'
 
 //content directory as static.
-app.use('/content', express.static(FOLDER))
+app.use('/generated', express.static(FOLDER))
+
+// The web interface at the root of the site
+app.use(express.static('public'))
 
 // Take a picture with a given name
 app.get('/pic/:name', (req, res) => {
@@ -26,15 +28,16 @@ app.get('/pic/:name', (req, res) => {
 
     childProcess.on('error', (err) => {
         noError = false
-        res.json({status:'ERROR', err: err})
+        res.status(500).json({status:'error', err: err})
+        debug('Error received.')
         console.error(err)
     })
 
     childProcess.on('close', (code) => {
         if (noError) {
-            debug(`${cmd} exited with code ${code}`)
-            let imagePath = `/content/${name}.jpg`
-            res.json({status:'OK', type: 'image', path: imagePath})
+            debug(`${cmd} exited with code ${code}. Sending ok to client.`)
+            let imagePath = `/generated/${name}.jpg`
+            res.json({status:'ok', type: 'image', path: imagePath})
         }
     })
 
@@ -60,7 +63,7 @@ app.get('/timelapse/:name/:duration/:interval', (req, res) => {
         console.error(err)
     })
 
-    res.json({status: 'pending', type: 'timelapse', duration: duration, interval:interval}) //no way to check it worked
+    res.json({status: 'pending', type: 'timelapse', duration: duration, interval:interval}) //no way to check if it worked
 })
 
 // convert to mp4: https://www.raspberrypi.org/documentation/usage/camera/raspicam/raspivid.md
@@ -97,7 +100,7 @@ app.get('/video/:name/:time', (req, res) => {
         console.error(err)            
     })
 
-    res.json({status: 'pending', type: 'video', path: `/content/${name}.mp4`})
+    res.json({status: 'pending', type: 'video', path: `/generated/${name}.mp4`})
 })
 
 app.listen(PORT, () => {

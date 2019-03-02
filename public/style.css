@@ -1,0 +1,66 @@
+body {
+    margin: 40px;
+    font-family: -system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
+    font-size: 20px;
+    font-weight: 400;
+}
+
+h3 {
+    margin: 5px;
+    font-size: 1.5em;
+}
+
+input {
+    font: inherit;
+}
+
+/* button styling from https://css-tricks.com/overriding-default-button-styles/ */
+.button {
+    border: 0;
+    border-radius: 0.25rem;
+    background: #1E88E5;
+    color: white;
+    font-family: system-ui, sans-serif;
+    font-size: 2rem;
+    line-height: 1.2;
+    white-space: nowrap;
+    text-decoration: none;
+    padding: 0.25rem 0.5rem;
+    width: 50%;
+    margin: 20px 115px 0px 115px;
+    cursor: pointer;
+}
+
+button:hover,
+button:focus {
+    background: #0053ba;
+}
+
+button:focus {
+    outline: 1px solid #fff;
+    outline-offset: -4px;
+}
+
+button:active {
+    transform: scale(0.99);
+}
+
+.wrapper {
+    display: grid;
+    grid-template-columns: 500px;
+    grid-gap: 10px;
+    background-color: #fff;
+    color: #444;
+}
+
+.box {
+    background-color: rgb(245, 41, 14);
+    color: #fff;
+    border-radius: 5px;
+    padding: 10px;
+}
+
+.label {
+    display:inline-block;
+    width: 170px;
+}

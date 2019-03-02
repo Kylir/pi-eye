@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta name="renderer" content="webkit">
+
+    <title>Pi-Eye Interface</title>
+    
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+
+    <link rel="stylesheet" href="style.css">
+    <!-- production version, optimized for size and speed -->
+    <script src="https://vuejs.org/js/vue.js"></script>
+    
+</head>
+
+<body>
+    <div id="app">
+        <div class="wrapper">
+            <div class="box">
+                <h3>Image</h2>
+                <div>
+                    <span class="label">Name</span>
+                    <input v-model="picName">
+                </div>
+                <div>
+                    <button class="button" v-on:click="takePicture">Capture</button>
+                </div>
+            </div>
+
+            <div class="box">
+                <h3>Video</h3>
+                <div>
+                    <span class="label">Name</span>
+                    <input v-model="videoName">
+                </div>
+                <div>
+                    <span class="label">Duration (sec)</span>
+                    <input v-model="videoDuration">
+                </div>
+                <div>
+                    <button class="button" v-on:click="createVideo">Record</button>
+                </div>
+            </div>
+
+            <div class="box">
+                <h3>Timelapse</h3>
+                <div>
+                    <span class="label">Name</span>
+                    <input v-model="timelapseName">
+                </div>
+                <div>
+                    <span class="label">Duration (sec)</span>
+                    <input v-model="timelapseDuration">
+                </div>
+                <div>
+                    <span class="label">Interval (sec)</span>
+                    <input v-model="timelapseInterval">
+                </div>
+                <div>
+                    <button class="button" v-on:click="createTimelapse">Create</button>
+                </div>
+            </div>
+
+        </div>
+        <div>
+            <ul>
+                <li v-for="response in responses">
+                    <div :class="response.class">{{ response.text }}</div>
+                </li>
+            </ul>
+        </div>
+    </div>
+</body>
+<script src="script.js"></script>
+</html>
