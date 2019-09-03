@@ -12,19 +12,20 @@ Behind the scene it is using NodeJS (ExpressJS to be more specific.)
 
 ### Prerequisites
 
-+ `raspistill` and `raspivid`
+#### `raspistill` and `raspivid`
 
 I assume your Raspberry is already able to take pictures and record videos using `raspistill` and `raspivid`.
 If you're not sure, have a look at the official documentation:
-  - [Enable the camera.](https://www.raspberrypi.org/documentation/usage/camera/README.md)
-  - [Take pictures.](https://www.raspberrypi.org/documentation/usage/camera/raspicam/raspistill.md)
-  - [Record videos.](https://www.raspberrypi.org/documentation/usage/camera/raspicam/raspivid.md)
 
-+ NodeJS (and npm)
+- [Enable the camera.](https://www.raspberrypi.org/documentation/usage/camera/README.md)
+- [Take pictures.](https://www.raspberrypi.org/documentation/usage/camera/raspicam/raspistill.md)
+- [Record videos.](https://www.raspberrypi.org/documentation/usage/camera/raspicam/raspivid.md)
+
+#### NodeJS (and npm)
 
 I also assume you already have NodeJS and npm installed on your Pi. If not, have a [look at this post on Stackoverflow](https://raspberrypi.stackexchange.com/a/48313/20530).
 
-+ MP4Box
+#### MP4Box
 
 Last assumption, to create an MP4 video from the raw H264 format raspivid is creating, you need `MP4Box` to be installed.
 This binary is part of the `gpac` package.
