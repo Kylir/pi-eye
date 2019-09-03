@@ -16,10 +16,9 @@ Behind the scene it is using NodeJS (ExpressJS to be more specific.)
 
 I assume your Raspberry is already able to take pictures and record videos using `raspistill` and `raspivid`.
 If you're not sure, have a look at the official documentation:
-
-    - [Enable the camera.](https://www.raspberrypi.org/documentation/usage/camera/README.md)
-    - [Take pictures.](https://www.raspberrypi.org/documentation/usage/camera/raspicam/raspistill.md)
-    - [Record videos.](https://www.raspberrypi.org/documentation/usage/camera/raspicam/raspivid.md)
+  - [Enable the camera.](https://www.raspberrypi.org/documentation/usage/camera/README.md)
+  - [Take pictures.](https://www.raspberrypi.org/documentation/usage/camera/raspicam/raspistill.md)
+  - [Record videos.](https://www.raspberrypi.org/documentation/usage/camera/raspicam/raspivid.md)
 
 + NodeJS (and npm)
 
