@@ -7,9 +7,12 @@ A simple web page to take pictures, create time lapse and record videos with you
 Pi-Eye is a web interface to trigger `raspistill` and `raspivid` on your Raspberry Pi.
 Behind the scene it is using NodeJS (ExpressJS to be more specific.)
 
+
 ## Installation
 
 ### Prerequisites
+
++ `raspistill` and `raspivid`
 
 I assume your Raspberry is already able to take pictures and record videos using `raspistill` and `raspivid`.
 If you're not sure, have a look at the official documentation:
@@ -18,14 +21,38 @@ If you're not sure, have a look at the official documentation:
 + [Take pictures.](https://www.raspberrypi.org/documentation/usage/camera/raspicam/raspistill.md)
 + [Record videos.](https://www.raspberrypi.org/documentation/usage/camera/raspicam/raspivid.md)
 
-I also assume you already have NodeJS and npm installed on your Pi. If not have a [look at this post on Stackoverflow](https://raspberrypi.stackexchange.com/a/48313/20530).
++ NodeJS (and npm)
 
-Last assumption, to create an MP4 video from the raw H264 you need `MP4Box` to be installed.
+I also assume you already have NodeJS and npm installed on your Pi. If not, have a [look at this post on Stackoverflow](https://raspberrypi.stackexchange.com/a/48313/20530).
 
++ MP4Box
+
+Last assumption, to create an MP4 video from the raw H264 format raspivid is creating, you need `MP4Box` to be installed.
+This binary is part of the `gpac` package.
+`sudo apt install gpac` will do the trick. Be warned: it is a **big** package! 480 MB!
+
+### Download the NodeJS modules
+
+The next step is to download the NodeJS dependencies by running the following command in the project folder:
+
+```
+npm install
+```
+
+### Start the the server
+
+The last step is to start the back-end server that will listen to your request and talk to the Pi and take some pictures and videos. To do that you have to run the following command:
+
+```
+npm start
+```
 
 ## Web Interface
 
-TODO: for the moment the project has no web interface. But it would be nice to be able to take some pictures and record some videos remotely using a web page.
+The web interface is accessible on the port 3000.
+Find the IP address of your Pi (for instance using `ifconfig`) and use this address to open a browser.
+
+For instance my IP address is `192.168.1.174`. I can then point a browser to `http://192.168.1.174:3000/` and I will see the web interface.
 
 
 ## API
@@ -110,7 +137,7 @@ For info about the size of a video file: I made a one minute video and it was 12
 + A: It is 1920 x 1080 pixels at 25 frames per second.
 
 + Q: How big is a video?
-+ A: A one minute video I made was around 127 MB.
++ A: A one minute video was around 127 MB.
 
 + Q: What is the default format of a picture?
 + A: It is a JPG file at 2592 x 1944 pixels.
@@ -122,4 +149,4 @@ For info about the size of a video file: I made a one minute video and it was 12
 + A: I reviewed the existing ones and they were not exactly doing what I wanted. So, I decided to re-invent the wheel. 
 
 + Q: When are you going to make a nice web interface to the application?
-+ A: When I will have the time... :'(
++ A: UPDATE! There is one now! OK, it is not the prettiest one... but it works! isn't it?...
