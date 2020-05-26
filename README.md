@@ -25,6 +25,14 @@ If you're not sure, have a look at the official documentation:
 
 I also assume you already have NodeJS and npm installed on your Pi. If not, have a [look at this post on Stackoverflow](https://raspberrypi.stackexchange.com/a/48313/20530).
 
+As an example, for the Pi Zero W you need NodeJS for ARM 6:
+
+```
+wget https://nodejs.org/dist/latest-v10.x/node-v10.16.3-linux-armv6l.tar.gz
+tar -xvf node-v10.16.3-linux-armv6l.tar.gz
+sudo cp -r node-v10.16.3-linux-armv6l/* /usr/local/
+```
+
 #### MP4Box
 
 Last assumption, to create an MP4 video from the raw H264 format raspivid is creating, you need `MP4Box` to be installed.
