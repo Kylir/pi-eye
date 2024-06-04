@@ -1,6 +1,6 @@
 {
   "name": "pi-eye",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Web interface to take pictures and record videos with a raspberry pi.",
   "main": "index.js",
   "scripts": {
