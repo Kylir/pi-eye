@@ -20,7 +20,7 @@ app.get("/pic/:name", (req, res) => {
   let name = req.params.name;
   let noError = true;
 
-  const cmd = "raspistill";
+  const cmd = "libcamera-still";
   let args = ["-o", FOLDER + "/" + name + ".jpg"];
 
   debug(`Taking picture with command: ${cmd} ` + args.join(" "));
@@ -42,19 +42,20 @@ app.get("/pic/:name", (req, res) => {
   });
 });
 
+// Take several pictures to make a timelapse
 app.get("/timelapse/:name/:duration/:interval", (req, res) => {
   let prefix = req.params.name,
     duration = req.params.duration * 1000, //TODO: add validation for integer
     interval = req.params.interval * 1000; //TODO: add validation for integer
 
-  const cmd = "raspistill";
+  const cmd = "libcamera-still";
   const options = { detached: true };
   let args = [
     "-o",
     FOLDER + "/" + prefix + "%06d.jpg",
     "-t",
     duration,
-    "-tl",
+    "--timelapse",
     interval,
   ];
 
@@ -81,7 +82,7 @@ app.get("/timelapse/:name/:duration/:interval", (req, res) => {
 // Start recording a video name :name for :time seconds
 app.get("/video/:name/:time", (req, res) => {
   const VIDEO_FRAME_RATE = 30;
-  const cmd = "raspivid";
+  const cmd = "libcamera-vid";
   const convCmd = "ffmpeg"; //conversion to MP4
 
   let name = req.params.name;
@@ -92,7 +93,7 @@ app.get("/video/:name/:time", (req, res) => {
     FOLDER + "/" + name + ".h264",
     "-t",
     time,
-    "-fps",
+    "--framerate",
     VIDEO_FRAME_RATE,
   ];
   const options = { detached: true };
