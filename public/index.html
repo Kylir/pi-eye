@@ -71,7 +71,10 @@
         <div>
             <ul>
                 <li v-for="response in responses">
-                    <div :class="response.class">{{ response.text }}</div>
+                    <div :class="response.class">
+                        {{ response.text }}
+                        <a v-if="response.url" :href="response.url" target="_blank"> Link</a>                        
+                    </div>
                 </li>
             </ul>
         </div>

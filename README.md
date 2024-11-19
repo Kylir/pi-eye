@@ -4,21 +4,17 @@ A simple web page to take pictures, create time lapse and record videos with you
 
 ## Summary
 
-Pi-Eye is a web interface to trigger `raspistill` and `raspivid` on your Raspberry Pi.
-Behind the scene it is using NodeJS (ExpressJS to be more specific.)
+Pi-Eye is a web interface to trigger `libcamera-still` and `libcamera-vid` on your Raspberry Pi.
+Behind the scene it is using NodeJS (ExpressJS to be more specific) to run linnux programs.
 
 ## Installation
 
 ### Prerequisites
 
-#### `raspistill` and `raspivid`
+#### `libcamera-still` and `libcamera-vid`
 
-I assume your Raspberry is already able to take pictures and record videos using `raspistill` and `raspivid`.
-If you're not sure, have a look at the official documentation:
-
-- [Enable the camera.](https://www.raspberrypi.org/documentation/usage/camera/README.md)
-- [Take pictures.](https://www.raspberrypi.org/documentation/usage/camera/raspicam/raspistill.md)
-- [Record videos.](https://www.raspberrypi.org/documentation/usage/camera/raspicam/raspivid.md)
+I assume your Raspberry is already able to take pictures and record videos using `libcamera-still` and `libcamera-vid`.
+If you're not sure, have a look at [the official documentation](https://www.raspberrypi.com/documentation/computers/camera_software.html).
 
 #### NodeJS (and npm)
 
@@ -163,4 +159,4 @@ For info about the size of a video file: I made a one minute video and it was 12
 
 - Q: When are you going to make a nice web interface to the application?
 - A: UPDATE! There is one now! OK, it is not the prettiest one... but it works! isn't it?...
-gi
+  gi

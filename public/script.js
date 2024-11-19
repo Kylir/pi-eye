@@ -27,7 +27,8 @@ var app = new Vue({
             } else if (json.status === "ok") {
               vm.responses.push({
                 class: "success",
-                text: `Image generated: ${json.path}`,
+                text: "Image generated",
+                url: json.path,
               });
             }
           } else {
@@ -50,7 +51,8 @@ var app = new Vue({
           if (json.status && json.status === "pending") {
             vm.responses.push({
               class: "success",
-              text: `Video should be generated: ${json.path}`,
+              text: "Video will be generated shortly",
+              url: json.path,
             });
           } else {
             vm.responses.push({
@@ -72,7 +74,8 @@ var app = new Vue({
           if (json.status && json.status === "pending") {
             vm.responses.push({
               class: "success",
-              text: `Timelapse should be generated: ${json.path}`,
+              text: "Timelapse will be generated shortly",
+              url: json.path,
             });
           } else {
             vm.responses.push({
