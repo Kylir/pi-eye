@@ -9,6 +9,7 @@ const debug = require("debug")("pi-eye");
 let app = express();
 const PORT = 3000;
 const FOLDER = "generated";
+const ROTATION = "0";
 
 //content directory as static.
 app.use("/generated", express.static(FOLDER), serveIndex(FOLDER));
@@ -22,7 +23,7 @@ app.get("/pic/:name", (req, res) => {
   let noError = true;
 
   const cmd = "libcamera-still";
-  let args = ["-o", FOLDER + "/" + name + ".jpg"];
+  let args = ["--rotation", `${ROTATION}`, "-o", FOLDER + "/" + name + ".jpg"];
 
   debug(`Taking picture with command: ${cmd} ` + args.join(" "));
   let childProcess = spawn(cmd, args);
@@ -52,6 +53,8 @@ app.get("/timelapse/:name/:duration/:interval", (req, res) => {
   const cmd = "libcamera-still";
   const options = { detached: true };
   let args = [
+    "--rotation",
+    `${ROTATION}`,
     "-o",
     FOLDER + "/" + prefix + "%06d.jpg",
     "-t",
@@ -90,6 +93,8 @@ app.get("/video/:name/:time", (req, res) => {
   let time = req.params.time * 1000; //TODO: add validation for integer
 
   const args = [
+    "--rotation",
+    `${ROTATION}`,
     "-o",
     FOLDER + "/" + name + ".h264",
     "-t",
@@ -144,7 +149,16 @@ app.get("/stream/start", (req, res) => {
   // Command to use:
   // libcamera-vid -t 0 --inline --listen -o tcp://0.0.0.0:5000
   const cmd = "libcamera-vid";
-  const args = ["-t", "0", "--inline", "--listen", "-o", "tcp://0.0.0.0:5000"];
+  const args = [
+    "--rotation",
+    `${ROTATION}`,
+    "-t",
+    "0",
+    "--inline",
+    "--listen",
+    "-o",
+    "tcp://0.0.0.0:5000",
+  ];
   const options = { detached: true };
 
   const child = app.get("streamChildProcess");
