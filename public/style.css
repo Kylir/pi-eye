@@ -1,66 +1,94 @@
 body {
-    margin: 40px;
-    font-family: -system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
-    font-size: 20px;
-    font-weight: 400;
+  margin: 2rem;
+  font-family: -system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
+    "Segoe UI Symbol";
+  font-size: 1rem;
+  font-weight: 400;
 }
 
 h3 {
-    margin: 5px;
-    font-size: 1.5em;
+  margin: 0.5rem;
+  font-size: 1.5em;
 }
 
 input {
-    font: inherit;
+  font: inherit;
 }
 
-/* button styling from https://css-tricks.com/overriding-default-button-styles/ */
 .button {
-    border: 0;
-    border-radius: 0.25rem;
-    background: #1E88E5;
-    color: white;
-    font-family: system-ui, sans-serif;
-    font-size: 2rem;
-    line-height: 1.2;
-    white-space: nowrap;
-    text-decoration: none;
-    padding: 0.25rem 0.5rem;
-    width: 50%;
-    margin: 20px 115px 0px 115px;
-    cursor: pointer;
+  border: 0;
+  border-radius: 0.25rem;
+  background: #1e88e5;
+  color: white;
+  font-family: system-ui, sans-serif;
+  font-size: 1.5rem; /* Scaled down for smaller devices */
+  line-height: 1.2;
+  white-space: nowrap;
+  text-decoration: none;
+  padding: 0.5rem 1rem;
+  width: 100%; /* Full width by default */
+  max-width: 300px; /* Prevent it from being too wide */
+  margin: 1rem auto;
+  cursor: pointer;
+  display: block; /* Center buttons easily */
 }
 
 button:hover,
 button:focus {
-    background: #0053ba;
+  background: #0053ba;
 }
 
 button:focus {
-    outline: 1px solid #fff;
-    outline-offset: -4px;
+  outline: 1px solid #fff;
+  outline-offset: -4px;
 }
 
 button:active {
-    transform: scale(0.99);
+  transform: scale(0.99);
 }
 
 .wrapper {
-    display: grid;
-    grid-template-columns: 500px;
-    grid-gap: 10px;
-    background-color: #fff;
-    color: #444;
+  display: grid;
+  grid-template-columns: repeat(
+    auto-fit,
+    minmax(250px, 1fr)
+  ); /* Flexible grid */
+  gap: 1rem;
+  background-color: #fff;
+  color: #444;
+  padding: 1rem;
 }
 
 .box {
-    background-color: rgb(245, 41, 14);
-    color: #fff;
-    border-radius: 5px;
-    padding: 10px;
+  background-color: rgb(245, 41, 14);
+  color: #fff;
+  border-radius: 5px;
+  padding: 1rem;
 }
 
 .label {
-    display:inline-block;
-    width: 170px;
+  display: inline-block;
+  width: 8em; /* Use em for scaling with font size */
+}
+
+/* Media queries for responsiveness */
+@media (max-width: 768px) {
+  body {
+    margin: 1rem;
+    font-size: 0.9rem;
+  }
+
+  h3 {
+    font-size: 1.25em;
+  }
+
+  .button {
+    font-size: 1.2rem;
+    padding: 0.5rem;
+  }
+
+  .wrapper {
+    grid-template-columns: 1fr; /* Stack boxes on small screens */
+  }
 }

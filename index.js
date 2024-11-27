@@ -2,6 +2,7 @@
 "use strict";
 
 const express = require("express");
+const serveIndex = require("serve-index");
 const spawn = require("child_process").spawn;
 const debug = require("debug")("pi-eye");
 
@@ -10,7 +11,7 @@ const PORT = 3000;
 const FOLDER = "generated";
 
 //content directory as static.
-app.use("/generated", express.static(FOLDER));
+app.use("/generated", express.static(FOLDER), serveIndex(FOLDER));
 
 // The web interface at the root of the site
 app.use(express.static("public"));
@@ -137,6 +138,60 @@ app.get("/video/:name/:time", (req, res) => {
     type: "video",
     path: `/generated/${name}.mp4`,
   });
+});
+
+app.get("/stream/start", (req, res) => {
+  // Command to use:
+  // libcamera-vid -t 0 --inline --listen -o tcp://0.0.0.0:5000
+  const cmd = "libcamera-vid";
+  const args = ["-t", "0", "--inline", "--listen", "-o", "tcp://0.0.0.0:5000"];
+  const options = { detached: true };
+
+  const child = app.get("streamChildProcess");
+
+  if (child) {
+    res.status(500).json({
+      status: "error",
+      type: "Stream",
+      err: "Stream is already started.",
+    });
+    return;
+  }
+
+  debug(`Start streaming: ${cmd} ` + args.join(" "));
+  let streamChildProcess = spawn(cmd, args, options);
+
+  streamChildProcess.on("error", (err) => {
+    console.error(err);
+    app.set("streamChildProcess", null);
+  });
+
+  app.set("streamChildProcess", streamChildProcess);
+
+  res.json({
+    status: "pending",
+    type: "Stream",
+  });
+});
+
+app.get("/stream/stop", (req, res) => {
+  const child = app.get("streamChildProcess");
+
+  if (child) {
+    child.kill(); // Sends the default signal (SIGTERM)
+    app.set("streamChildProcess", null); // Clear the stored process
+
+    res.json({
+      status: "success",
+      type: "Stream",
+    });
+  } else {
+    res.json({
+      status: "error",
+      type: "Stream",
+      err: "No stream process found.",
+    });
+  }
 });
 
 app.listen(PORT, () => {

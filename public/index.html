@@ -66,6 +66,13 @@
                     <button class="button" v-on:click="createTimelapse">Create</button>
                 </div>
             </div>
+            <div class="box">
+                <h3>Stream</h3>
+                <div>
+                    <button v-if="!isStreamStarted" class="button" v-on:click="startStream">Start</button>
+                    <button v-else class="button" v-on:click="stopStream">Stop</button>
+                </div>
+            </div>
 
         </div>
         <div>

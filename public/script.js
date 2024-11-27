@@ -7,6 +7,7 @@ var app = new Vue({
     timelapseName: "timelapse",
     timelapseDuration: "60",
     timelapseInterval: "5",
+    isStreamStarted: false,
     responses: [],
   },
   methods: {
@@ -76,6 +77,54 @@ var app = new Vue({
               class: "success",
               text: "Timelapse will be generated shortly",
               url: json.path,
+            });
+          } else {
+            vm.responses.push({
+              class: "unknown",
+              text: `Unknown response received: "${JSON.stringify(json)}"`,
+            });
+          }
+        });
+    },
+
+    startStream: function () {
+      let vm = this;
+      let uri = "/stream/start";
+      vm.isStreamStarted = true;
+      fetch(uri)
+        .then(function (resp) {
+          return resp.json();
+        })
+        .then(function (json) {
+          if (json.status && json.status === "pending") {
+            vm.responses.push({
+              class: "success",
+              text: "Stream should be started.",
+            });
+          } else {
+            vm.responses.push({
+              class: "unknown",
+              text: `Unknown response received: "${JSON.stringify(json)}"`,
+            });
+            // an error occured - revert the state of the button
+            vm.isStreamStarted = false;
+          }
+        });
+    },
+
+    stopStream: function () {
+      let vm = this;
+      let uri = "/stream/stop";
+      vm.isStreamStarted = false;
+      fetch(uri)
+        .then(function (resp) {
+          return resp.json();
+        })
+        .then(function (json) {
+          if (json.status && json.status === "pending") {
+            vm.responses.push({
+              class: "success",
+              text: "Stream should be stopped",
             });
           } else {
             vm.responses.push({
